@@ -30,9 +30,7 @@ object ToDoListFIO extends App {
         _     <- if (cmd == Quit) {
                      IO.unit
                  } else {
-                     //TODO why is `unsafeRunSync` needed here?
-                     processCommand(cmd).unsafeRunSync()
-                     mainLoop  //note the recursion here
+                     processCommand(cmd) >> mainLoop  //note the recursion here
                  }
     } yield ()
 
@@ -58,7 +56,7 @@ object ToDoListFIO extends App {
             help
         }
         case Unknown => {
-            putStrLn("Unknown (type 'h' for help)")
+            putStrLn("Unknown (type 'h' for help)\n")
         }
     }
 
